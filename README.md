@@ -15,8 +15,8 @@ This is a story management application that allows users to create, view, and ma
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd story-management-app
+git clone https://github.com/obinnafranklinduru/story_management_application
+cd story_management_application
 ```
 
 2. Install the dependencies:
