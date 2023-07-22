@@ -50,23 +50,6 @@ npm install
 | POST   | /v1/stories/:id/like     | Likes a story (authentication required).                             |
 | POST   | /v1/stories/:id/comment  | Adds a comment to a story (authentication required).                 |
 
-## Data Models
-
-### User
-
-- `googleId`: String (required) - Google user ID
-- `displayName`: String (required) - User's display name
-- `email`: String (required) - User's email address
-
-### Story
-
-- `title`: String (required) - Story title
-- `body`: String (required) - Story content
-- `status`: String (required, enum: ['public', 'private']) - Story status (public or private)
-- `user`: ObjectId (required) - ID of the user who created the story
-- `likes`: Number (default: 0) - Number of likes for the story
-- `comments`: String[] (default: []) - Array of comments for the story
-
 ## Authentication
 
 The application uses Google OAuth 2.0 for authentication. Users can log in with their Google accounts. Once authenticated, a user can access their dashboard and perform CRUD operations on their own stories.
