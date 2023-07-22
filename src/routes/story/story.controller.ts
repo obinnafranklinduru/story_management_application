@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { StoryModel } from '../../models/story.model';
 import { IUser } from '../../interfaces/user.interface';
 import { ErrorResponse } from '../../utils/errorResponse';
-import { UserInputValidation } from './story.validation';
+import { UserInputValidation, UserUpdateValidation } from './story.validation';
 
 export async function createStory(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -56,15 +56,27 @@ export async function getUserStories(req: Request, res: Response, next: NextFunc
 export async function updateStory(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const { title, body, status } = req.body;
-        const userInput = UserInputValidation.parse({ title, body, status });
+        const userInput = UserUpdateValidation.parse({ title, body, status });
 
         const user = req.user as IUser;
 
-        const updatedStory = await StoryModel.findOneAndUpdate(
-            { _id: req.params.id, user: user._id },
-            { title: userInput.title, body: userInput.body, status: userInput.status },
-            { new: true }
-        );
+        const story = await StoryModel.findOne({ _id: req.params.id, user: user._id });
+
+        if (!story) return next(new ErrorResponse('Story not found', 404));
+
+        if (title) {
+            story.title = userInput.title;
+        }
+
+        if (body) {
+            story.body = userInput.body;
+        }
+
+        if (status) {
+            story.status = userInput.status;
+        }
+
+        const updatedStory = await story.save();
 
         res.status(200).json({ updatedStory });
     } catch (error) {
@@ -75,6 +87,7 @@ export async function updateStory(req: Request, res: Response, next: NextFunctio
 export async function deleteStory(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const user = req.user as IUser;
+
         await StoryModel.findOneAndDelete({ _id: req.params.id, user: user._id });
 
         res.json({ message: 'Story deleted successfully' });
@@ -89,10 +102,10 @@ export async function likeStory(req: Request, res: Response, next: NextFunction)
 
         if (!story) return next(new ErrorResponse('Story not found', 404));
 
-        story.likes++;
+        story.likes += 1;
         await story.save();
 
-        res.json(story);
+        res.status(200).json({ story });
     } catch (error) {
         next(error);
     }

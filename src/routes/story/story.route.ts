@@ -19,11 +19,8 @@ router.get('/public', getPublicStories);
 router.get('/my-stories', isAuthenticated, getUserStories);
 router.put('/:id', isAuthenticated, updateStory);
 router.delete('/:id', isAuthenticated, deleteStory);
-
 router.post('/:id/like', isAuthenticated, likeStory);
 router.post('/:id/comment', isAuthenticated, addComment);
-
-// New route for searching stories by title
 router.get('/search', searchByTitle);
 
 export { router as storyRouter };

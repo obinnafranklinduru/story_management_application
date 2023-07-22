@@ -33,22 +33,22 @@ npm install
      ```bash
      npm run dev
      ```
-     The server will be running at http://localhost:3000.
+     The server will be running at https://localhost:3000.
 
 ## API Endpoints
 
-| Method | Endpoint              | Description                                                          |
-| ------ | --------------------- | -------------------------------------------------------------------- |
-| POST   | /auth/google          | Initiates Google OAuth 2.0 authentication.                           |
-| GET    | /auth/google/callback | Callback URL for Google OAuth 2.0 authentication.                    |
-| GET    | /auth/logout          | Logs out the user.                                                   |
-| POST   | /stories              | Creates a new story (authentication required).                       |
-| GET    | /stories/public       | Retrieves all public stories.                                        |
-| GET    | /stories/my-stories   | Retrieves all stories created by the user (authentication required). |
-| PUT    | /stories/:id          | Updates a story (authentication required and must be the creator).   |
-| DELETE | /stories/:id          | Deletes a story (authentication required and must be the creator).   |
-| POST   | /stories/:id/like     | Likes a story (authentication required).                             |
-| POST   | /stories/:id/comment  | Adds a comment to a story (authentication required).                 |
+| Method | Endpoint                 | Description                                                          |
+| ------ | ------------------------ | -------------------------------------------------------------------- |
+| POST   | /v1/auth/google          | Initiates Google OAuth 2.0 authentication.                           |
+| GET    | /v1/auth/google/callback | Callback URL for Google OAuth 2.0 authentication.                    |
+| GET    | /v1/auth/logout          | Logs out the user.                                                   |
+| POST   | /v1/stories              | Creates a new story (authentication required).                       |
+| GET    | /v1/stories/public       | Retrieves all public stories.                                        |
+| GET    | /v1/stories/my-stories   | Retrieves all stories created by the user (authentication required). |
+| PUT    | /v1/stories/:id          | Updates a story (authentication required and must be the creator).   |
+| DELETE | /v1/stories/:id          | Deletes a story (authentication required and must be the creator).   |
+| POST   | /v1/stories/:id/like     | Likes a story (authentication required).                             |
+| POST   | /v1/stories/:id/comment  | Adds a comment to a story (authentication required).                 |
 
 ## Data Models
 
@@ -75,7 +75,7 @@ The application uses Google OAuth 2.0 for authentication. Users can log in with 
 
 You can search for stories based on their titles by sending a GET request to `/stories/search` with the title query parameter.
 
-Example: `GET /stories/search?title=my%20story`
+Example: `GET /stories/search?title=helloworld`
 
 ## Error Handling
 
